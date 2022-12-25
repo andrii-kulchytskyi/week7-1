@@ -3,6 +3,7 @@ import './App.css';
 import {Todolist} from './Todolist';
 import {v1} from 'uuid';
 import {addTaskAC, removeTaskAC, tasksReducer} from "./reducers/tasksReducer";
+import {changeFilterAC, filterReducer} from "./reducers/filterReducer";
 
 export type FilterValuesType = "all" | "active" | "completed";
 
@@ -37,7 +38,9 @@ function App() {
         dispatchTasks(addTaskAC(title))
     }
 
-    let [filter, setFilter] = useState<FilterValuesType>("all");
+    // let [filter, setFilter] = useState<FilterValuesType>("all");
+
+    const [filter, dispatchFilter] = useReducer(filterReducer, "all")
 
     let tasksForTodolist = tasks;
 
@@ -49,7 +52,8 @@ function App() {
     }
 
     function changeFilter(value: FilterValuesType) {
-        setFilter(value);
+        // setFilter(value);
+        dispatchFilter(changeFilterAC(value))
     }
 
 
